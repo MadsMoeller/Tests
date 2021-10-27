@@ -37,10 +37,6 @@ public class EmployeeRestControllerIntegrationTest {
     @MockBean
     private EmployeeRepository employeeRepository;
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
     @Test
     public void givenEmployees_whenGetEmployees_thenReturnJsonArray() throws Exception {
         Employee e1 = new Employee("alex");
@@ -62,5 +58,4 @@ public class EmployeeRestControllerIntegrationTest {
         verify(employeeRepository, VerificationModeFactory.times(1)).findAll();
         reset(employeeRepository);
     }
-
 }
