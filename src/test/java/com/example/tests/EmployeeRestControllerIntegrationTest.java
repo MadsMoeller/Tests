@@ -14,7 +14,7 @@ import java.util.List;
 
 import com.example.tests.controllers.EmployeeRestController;
 import com.example.tests.models.Employee;
-import com.example.tests.services.EmployeeService;
+import com.example.tests.repositories.EmployeeRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class EmployeeRestControllerIntegrationTest {
     private MockMvc mvc;
 
     @MockBean
-    private EmployeeService service;
+    private EmployeeRepository employeeRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -49,7 +49,7 @@ public class EmployeeRestControllerIntegrationTest {
 
         List<Employee> allEmployees = Arrays.asList(e1, e2, e3);
 
-        given(service.findAllEmployees()).willReturn(allEmployees);
+        given(employeeRepository.findAll()).willReturn(allEmployees);
 
         mvc.perform(get("/employees")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -59,8 +59,8 @@ public class EmployeeRestControllerIntegrationTest {
                 .andExpect(jsonPath("$[1].name", is(e2.getName())))
                 .andExpect(jsonPath("$[2].name", is(e3.getName())));
 
-        verify(service, VerificationModeFactory.times(1)).findAllEmployees();
-        reset(service);
+        verify(employeeRepository, VerificationModeFactory.times(1)).findAll();
+        reset(employeeRepository);
     }
 
 }
