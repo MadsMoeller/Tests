@@ -15,7 +15,6 @@ import java.util.List;
 import com.example.tests.controllers.EmployeeRestController;
 import com.example.tests.models.Employee;
 import com.example.tests.repositories.EmployeeRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.internal.verification.VerificationModeFactory;
@@ -51,9 +50,9 @@ public class EmployeeRestControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].name", is(e1.getName())))
-                .andExpect(jsonPath("$[1].name", is(e2.getName())))
-                .andExpect(jsonPath("$[2].name", is(e3.getName())));
+                .andExpect(jsonPath("$[0].name", is("alex")))
+                .andExpect(jsonPath("$[1].name", is("john")))
+                .andExpect(jsonPath("$[2].name", is("bob")));
 
         verify(employeeRepository, VerificationModeFactory.times(1)).findAll();
         reset(employeeRepository);
